@@ -4,6 +4,7 @@
 #
 #    Copyright (C) 2000-2009     LxLabs
 #    Copyright (C) 2009          LxCenter
+#    Copyright (C) 2009-2016     HyperVM.Center
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,7 +20,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # HyperVM
-# Install Script Version 1.0.1
+# Install Script Version 1.1.1
 # More information at http://www.lxcenter.org/
 # Author dterweij
 #
