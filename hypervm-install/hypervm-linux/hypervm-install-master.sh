@@ -23,63 +23,56 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # HyperVM
-# Install Script Version 1.1.1
+# Install Script Version 1.0.1
 # More information at http://www.lxcenter.org/
 # Author dterweij
 #
+# Changelog:
+# - v1.0.2:
+#       * switched from lxcenter to hypervm-ng
+#
 ######
 clear
-cat LICENSE
 echo "--------------------------------------------"
 
 start() {
-
 	export PATH=/usr/sbin:/sbin:$PATH
 
-if ! [ -f /usr/bin/yum ] ; then
-      	echo You at least need yum installed for this to work...
-	echo Please contact us or visit the forum at http://forum.lxcenter.org
-	echo "                                "
-	exit
-fi
-#
-if [ -f /usr/bin/yum ] ; then
-	echo Installing some packages with yum
-	yum -y install php wget zip unzip 
-else 
-	echo Installing some packages with up2date
-	up2date --nox --nosig php wget zip unzip
-fi
-#
-	echo Checking if php is installed
-if ! [ -f /usr/bin/php ] ; then
-	echo Installing php failed. Please fix yum/up2date.
-	exit
-fi
-#
-if 	[ -f ./hypervm-install.zip ] ; then
-	echo Remove old installation package
-	rm -f hypervm-install.zip
-fi
+	if ! [ -f /usr/bin/yum ] ; then
+		echo "You at least need yum installed for this to work..."
+		echo "Please contact us or visit the forum at http://community.hypervm-ng.org"
+		echo "                                "
+		exit
+	fi
 
-if [ ! -d '../../.git' ]; then
-	pwd
-	echo Downloading installation package from LxCenter
-	wget http://download.lxcenter.org/download/hypervm-install.zip
-else
-	echo 'Development GIT version found. Skipping download sources.'
-fi
-#
-	
+	echo "Installing some packages with yum"
+	yum -y install php wget zip unzip
+
+	echo Checking if php is installed
+	if ! [ -f /usr/bin/php ] ; then
+		echo "Installing php failed. Please fix yum."
+		exit
+	fi
+
 	if [ ! -d '../../.git' ]; then
-		echo "Unpacking installation package"	
+
+		if [ -f ./hypervm-install.zip ] ; then
+    		echo "Remove old installation package"
+    		rm -f hypervm-install.zip
+    	fi
+		pwd
+		echo "Downloading installation package from HyperVM-NG"
+        wget http://download.hypervm-ng.org/download/hypervm-ng/production/hypervm-install.zip
+		echo "Unpacking installation package"
 		unzip -oq hypervm-install.zip
 	else
-		echo "Unpacking installation package from current development version"
+		echo "Development GIT version found. Skipping download sources."
+		echo "Unpacking installation package from current development version."
 		unzip -oq ../hypervm-install.zip
 	fi
+
 	cd hypervm-install/hypervm-linux
-	echo Starting main installation script
+	echo "Starting main installation script"
 	php lxins.php --install-type=master $1 $2 | tee hypervm_install.log
 }
 #
@@ -87,19 +80,19 @@ fi
 #
 case "$1" in
   --virtualization-type=xen)
-	echo 'Installing HyperVM with Xen virtualization'
+	echo 'Installing HyperVM Master Host with Xen virtualization'
     start $*
     ;;
   --virtualization-type=openvz)
-	echo 'Installing HyperVM with OpenVZ virtualization'
+	echo 'Installing HyperVM Master Host with OpenVZ virtualization'
     start $*
     ;;
   --virtualization-type=NONE)
-	echo 'Installing HyperVM with default(Xen) virtualization'
+	echo 'Installing HyperVM Master Host without virtualization'
     start $*
     ;;
   *)
-   	echo $"This is the HyperVM Install script"
+   	echo $"This is the HyperVM Master Host Install script"
     	echo $"The usage is:"
     	echo $"sh $0 --virtualization-type=xen/openvz/NONE [--skipostemplate=true]"
 	exit 1
