@@ -170,7 +170,7 @@ function createHeaderData()
     } else {
         $ticket_url = "/display.php?frm_action=list&frm_o_cname=ticket";
     }
-    $helpurl = "http://wiki.lxcenter.org/";
+    $helpurl = "https://github.com/Com-QuadTech/hypervm/";
 
 
     $gdata = array(
