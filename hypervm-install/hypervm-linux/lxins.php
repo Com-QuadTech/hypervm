@@ -219,7 +219,7 @@ function lxins_main()
     echo smart_wordwrap("\n\nExtra note:\n");
     echo smart_wordwrap("To install extra XEN and/or OpenVZ OS templates please run:\n\n");
     echo smart_wordwrap("sh /script/install-extra-ostemplates\n");
-    echo smart_wordwrap("\nThese templates are left out the install process to speed up the HyperVM installation. By default only CentOS 5 and HostInBox(Kloxo) OS templates are installed.\n\n");
+    echo smart_wordwrap("\nThese templates are left out the install process to speed up the HyperVM installation. By default only CentOS 5/6 and HyperVM (Kloxo) LxAdmin OS templates are installed.\n\n");
     echo smart_wordwrap("\n#!# Reboot your system to boot into the right kernel #!#\n\n");
 
     if (file_exists('/usr/local/lxlabs/.git')) {
